@@ -1,0 +1,25 @@
+# g++
+# Build your c++ projects with g++.
+# https://aka.ms/yaml
+
+queue: 'Hosted Linux'
+
+#variables:
+#  system.debug: 'true'
+
+steps:
+- script: 'g++ *.cpp -o main'
+
+- task: CopyFiles@2
+  displayName: 'Copy artifacts'
+  inputs:
+    contents: '**/main'
+    targetFolder: '$(build.artifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts'
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)'
+    artifactName: 'artifact'
+    artifactType: 'container'
+    
