@@ -2,7 +2,7 @@
 # Build your C++ projects with g++ and GNU Make.
 # https://aka.ms/yaml
 
-queue: 'Hosted Linux'
+queue: 'Hosted Linux Preview'
 
 #variables:
 #  system.debug: 'true'
