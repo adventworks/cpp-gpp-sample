@@ -1,5 +1,5 @@
 # g++
-# Build your c++ projects with g++.
+# Build your C++ projects with g++ and GNU Make.
 # https://aka.ms/yaml
 
 queue: 'Hosted Linux'
@@ -8,12 +8,12 @@ queue: 'Hosted Linux'
 #  system.debug: 'true'
 
 steps:
-- script: 'g++ *.cpp -o main'
+- script: 'make'
 
 - task: CopyFiles@2
   displayName: 'Copy artifacts'
   inputs:
-    contents: '**/main'
+    contents: '**/primes_in_range'
     targetFolder: '$(build.artifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
@@ -22,4 +22,3 @@ steps:
     pathToPublish: '$(build.artifactStagingDirectory)'
     artifactName: 'artifact'
     artifactType: 'container'
-    
