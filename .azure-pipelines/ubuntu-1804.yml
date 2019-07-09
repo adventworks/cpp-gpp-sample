@@ -1,0 +1,25 @@
+# g++
+# Build your C++ projects with g++ and GNU Make.
+# https://aka.ms/yaml
+
+pool:
+  vmImage: ubuntu-18.04
+
+#variables:
+#  system.debug: 'true'
+
+steps:
+- script: 'make'
+
+- task: CopyFiles@2
+  displayName: 'Copy artifacts'
+  inputs:
+    contents: '**/primes_in_range'
+    targetFolder: '$(build.artifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts'
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)'
+    artifactName: 'artifact'
+    artifactType: 'container'
