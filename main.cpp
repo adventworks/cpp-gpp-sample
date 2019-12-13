@@ -7,62 +7,57 @@ using namespace std;
 
 namespace
 {
-  struct usage_exception {};
+    struct usage_exception {};
 
-  //! Cast `int` to `unsigned int` or throw `invalid_argument` if it is negative
-  unsigned int to_uint(int n)
-  {
-    if (n < 0)
+    //! Cast `int` to `unsigned int` or throw `invalid_argument` if it is negative
+    unsigned int to_uint(int n)
     {
-      const auto msg = to_string(n) + " is negative.";
-      throw invalid_argument{ msg };
-    }
+        if (n < 0)
+        {
+            const auto msg = to_string(n) + " is negative.";
+            throw invalid_argument{ msg };
+        }
 
-    return static_cast<unsigned int>(n);
-  }
+        return static_cast<unsigned int>(n);
+    }
 }
 
 int main(int argc, char* argv[])
 {
-  int k;
-
-  int w = std::string("world");
-
-  try
-  {
-    if (argc != 3)
+    try
     {
-      throw usage_exception{};
+        if (argc != 3)
+        {
+            throw usage_exception{};
+        }
+
+        const auto start_signed = stoi(argv[1]);
+        const auto start = to_uint(start_signed);
+
+        const auto end_signed = stoi(argv[2]);
+        const auto end = to_uint(end_signed);
+
+        cout << "Primes in range [" << start << ", " << end << "]:" << endl;
+        for (auto n : primes_in_range(start, end))
+        {
+            cout << n << endl;
+        }
+
+        return 0;
     }
-
-    const auto start_signed = stoi(argv[1]);
-    const auto start = to_uint(start_signed);
-
-    const auto end_signed = stoi(argv[2]);
-    const auto end = to_uint(end_signed);
-
-    cout << "Primes in range [" << start << ", " << end << "]:" << endl;
-    for (auto n : primes_in_range(start, end))
+    catch (usage_exception&)
     {
-      cout << n << endl;
+        cerr << "Usage: primes_in_range <begin> <end>" << endl;
+        return 1;
     }
-
-    return 0;
-  }
-  catch (usage_exception&)
-  {
-    cerr << "Usage: primes_in_range <begin> <end>" << endl;
-    return 1;
-  }
-  catch (invalid_argument & ia)
-  {
-    cerr << "[Error] " << ia.what() << endl;
-    return 1;
-  }
-  catch (...)
-  {
-    cerr << "[Error] an unknown error occurred" << endl;
-    return -1;
-  }
-  return k;
+    catch (invalid_argument& ia)
+    {
+        cerr << "[Error] " << ia.what() << endl;
+        return 1;
+    }
+    catch (...)
+    {
+        cerr << "[Error] an unknown error occurred" << endl;
+        return -1;
+    }
 }
