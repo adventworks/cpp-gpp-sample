@@ -1,2 +1,2 @@
 # cpp-gpp-sample
-## A C++ code sample to compile with g++ and GNU Make
+## A C++ cOdE sAmPlE tO cOmPiLe WiTh g++ aNd GNU mAke
